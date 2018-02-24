@@ -14,6 +14,8 @@ import { ErrorComponent } from './error/error.component';
 import { ProductosListComponent } from './productos-list/productos-list.component';
 import { ProductoService } from './services/producto.service';
 import { ProductoAddComponent } from './producto-add/producto-add.component';
+import { ProductoDetailComponent } from './producto-detail/producto-detail.component';
+import { ProductoEditComponent } from './producto-edit/producto-edit.component';
 
 
 @NgModule({
@@ -22,7 +24,9 @@ import { ProductoAddComponent } from './producto-add/producto-add.component';
     HomeComponent,
     ErrorComponent,
     ProductosListComponent,
-    ProductoAddComponent
+    ProductoAddComponent,
+    ProductoDetailComponent,
+    ProductoEditComponent
   ],
   imports: [
     BrowserModule,

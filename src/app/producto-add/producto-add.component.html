@@ -3,19 +3,32 @@
 <div class="container">
   <form #formProducto="ngForm" (ngSubmit)="onSubmit()" class="col-lg-6" id="form-producto">
 
-    <label>Nombre</label>
-    <input type="text" #nombre="ngModel" name="nombre" [(ngModel)]="producto.nombre" class="form-control" />
+    <label>
+      Nombre
+      <span *ngIf="!nombre.valid && nombre.touched" class="badge badge-danger">El nombre es obligatorio</span>
+    </label>
+    <input type="text" #nombre="ngModel" name="nombre" [(ngModel)]="producto.nombre" class="form-control" required/>
 
-    <label>Descripción</label>
-    <textarea #descripcion="ngModel" name="descripcion" [(ngModel)]="producto.descripcion" class="form-control"></textarea>
 
-    <label>Precio</label>
-    <input type="text" #precio="ngModel" name="precio" [(ngModel)]="producto.precio" class="form-control" />
+    <label>
+      Descripción
+      <span *ngIf="!descripcion.valid && descripcion.touched" class="badge badge-danger">La descripcion es obligatoria</span>
+    </label>
+    <textarea #descripcion="ngModel" name="descripcion" [(ngModel)]="producto.descripcion" class="form-control" required></textarea>
+
+    <label>
+      Precio
+      <span *ngIf="!precio.valid && precio.touched" class="badge badge-danger">El precio no es correcto</span>
+    </label>
+    <input type="text" #precio="ngModel" name="precio" [(ngModel)]="producto.precio" class="form-control" required pattern="[0-9]+"/>
 
     <label>Imagen</label>
-    <input type="file" class="form-control" />
+    <div *ngIf="isEdit && producto.imagen">
+        <img src="http://localhost/curso-angular4/uploads/{{producto.imagen}}" width="60px" />
+    </div>
+    <input type="file" class="form-control" (change)="fileChangeEvent($event)"/>
 
     <br/>
-    <input type="submit" value="{{titulo}}" class="btn btn-success"/>
+    <input type="submit" value="{{titulo}}" [disabled]="!formProducto.form.valid" class="btn btn-success" />
   </form>
 </div>
