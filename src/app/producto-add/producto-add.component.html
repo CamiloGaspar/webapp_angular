@@ -1,7 +1,7 @@
 <h3 id="titulo">{{titulo}}</h3>
 <hr/>
 <div class="container">
-  <form #formProducto="ngForm" (ngSubmit)="onSubmit()" class="col-lg-6" id="form-producto">
+  <form #formProducto="ngForm" (ngSubmit)="onSubmit(formProducto); submitBut.disabled='true'" class="col-lg-6" id="form-producto">
 
     <label>
       Nombre
@@ -24,11 +24,11 @@
 
     <label>Imagen</label>
     <div *ngIf="isEdit && producto.imagen">
-        <img src="http://localhost/curso-angular4/uploads/{{producto.imagen}}" width="60px" />
+        <img src="http://192.168.0.20/curso-angular4/uploads/{{producto.imagen}}" width="60px" />
     </div>
     <input type="file" class="form-control" (change)="fileChangeEvent($event)"/>
 
     <br/>
-    <input type="submit" value="{{titulo}}" [disabled]="!formProducto.form.valid" class="btn btn-success" />
+    <input #submitBut type="submit" value="{{titulo}}" [disabled]="!formProducto.form.valid" class="btn btn-success" />
   </form>
 </div>

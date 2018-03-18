@@ -10,7 +10,7 @@
             <div class="col-lg-3" *ngFor="let producto of productos">
                 <div class="img-thumbnail">
                     <div *ngIf="producto.imagen">
-                        <img src="http://localhost/curso-angular4/uploads/{{producto.imagen}}" class="producto_imagen" />
+                        <img src="http://192.168.0.20/curso-angular4/uploads/{{producto.imagen}}" class="producto_imagen" />
                     </div>
                     <div *ngIf="!producto.imagen">
                         <div class="img_relleno"></div>
@@ -21,11 +21,7 @@
                         <div class="botones" *ngIf="seguro != producto.id">
                             <a [routerLink]="['/producto', producto.id]" class="btn btn-sm btn-outline-primary">Ver</a>
                             <a [routerLink]="['/editar-producto', producto.id]" class="btn btn-sm btn-outline-warning">Editar</a>
-                            <a class="btn btn-sm btn-outline-danger" (click)="confirmar(producto.id)">Eliminar</a>
-                        </div>
-                        <div *ngIf="seguro == producto.id">
-                            <a id="eliminar" class="btn btn-sm btn-outline-danger" (click)="onDeleteProducto(producto.id)">Eliminar</a>
-                            <a id="eliminar" class="btn btn-sm btn-outline-warning" (click)="confirmar()">Cancelar</a>
+                            <a role="button" class="btn btn-sm btn-outline-danger" (click)="verDetalle(camiloModal,producto.id)">Eliminar</a>
                         </div>
                     </div>
                 </div>
@@ -33,3 +29,35 @@
         </div>
     </div>
 </div>
+
+<div *ngIf="productos && productos.length == 0">
+    <div class="container">
+        <div class="col-lg-12">
+            <h3 style="text-align: center">No hay ningún producto disponible</h3>
+            <br>
+            <img class="col-lg-6 offset-lg-3" src="http://192.168.0.20/curso-angular4/uploads/sad.png">
+        </div>
+    </div>
+</div>
+
+<!-- Modal / Ventana / Overlay en HTML -->
+<ng-template #camiloModal>
+    <div class="modal-header">
+        <h4 class="modal-title">¿Estás seguro?</h4>
+        <button type="button" class="close" aria-hidden="Close" (click)="modalRef.hide()">&#10799;</button>
+    </div>
+    <div class="modal-body">
+        <p>¿Seguro que quieres borrar este elemento?</p>
+        <h3 style="text-align: center">{{this.producto.nombre}}</h3>
+        <div *ngIf="this.producto.imagen">
+            <img src="http://192.168.0.20/curso-angular4/uploads/{{this.producto.imagen}}" class="producto_imagen" />
+        </div>
+        <p class="text-warning">
+            <small>Si lo borras, nunca podrás recuperarlo.</small>
+        </p>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" (click)="modalRef.hide()">Cerrar</button>
+        <button type="button" class="btn btn-danger" (click)="onDeleteProducto(this.producto.id);modalRef.hide();">Eliminar</button>
+    </div>
+</ng-template>

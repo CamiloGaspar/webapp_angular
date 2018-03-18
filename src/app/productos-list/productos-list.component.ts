@@ -1,26 +1,32 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { ProductoService } from '../services/producto.service';
 import { Producto } from '../models/producto';
+import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 
 @Component({
   selector: 'app-productos-list',
   templateUrl: './productos-list.component.html',
   styleUrls: ['./productos-list.component.css'],
-  providers: [ProductoService]
+  providers: [ProductoService, BsModalService]
 })
 export class ProductosListComponent implements OnInit {
 
   public titulo: string;
   public productos: Producto[];
   public seguro: number;
+  public producto: Producto;
+  modalRef: BsModalRef;
+
   constructor(
     private _route: ActivatedRoute,
     private _router: Router,
-    private _productoService: ProductoService
+    private _productoService: ProductoService,
+    private modalService: BsModalService
   ) {
     this.titulo = 'Listado de productos';
     this.seguro = null;
+    this.productos = null;
   }
 
   ngOnInit() {
@@ -58,6 +64,16 @@ export class ProductosListComponent implements OnInit {
         console.log(<any>error);
       }
     );
+  }
+
+  public verDetalle(template: TemplateRef<any>, idItem: number) {
+    for (const item of this.productos) {
+      if (idItem === item.id) {
+        this.producto = item;
+        break;
+      }
+    }
+    this.modalRef = this.modalService.show(template);
   }
 
   confirmar(id) {

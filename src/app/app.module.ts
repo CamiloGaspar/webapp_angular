@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
 import { FormsModule } from '@angular/forms';
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 // RUTAS
 import { routing, appRoutingProviders } from './app.routing';
@@ -32,6 +33,7 @@ import { ProductoEditComponent } from './producto-edit/producto-edit.component';
     BrowserModule,
     HttpModule,
     FormsModule,
+    ModalModule.forRoot(),
     routing
   ],
   providers: [

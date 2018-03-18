@@ -4,6 +4,7 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import { ProductoService } from '../services/producto.service';
 import { Producto } from '../models/producto';
 import { GLOBAL } from '../services/global';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-producto-add',
@@ -17,6 +18,7 @@ export class ProductoAddComponent implements OnInit {
   public producto: Producto;
   public filesToUpload: Array<File>;
   public resultUpload;
+  public isEdit: boolean;
 
   constructor(
     private _productoService: ProductoService,
@@ -26,13 +28,14 @@ export class ProductoAddComponent implements OnInit {
     this.titulo = 'Crear un nuevo producto';
     this.producto = new Producto(0, '', '', 0, '');
     this.filesToUpload = new Array<File>();
+    this.isEdit = false;
   }
 
   ngOnInit() {
     console.log('Este producto-add.component.ts cargado');
   }
 
-  onSubmit() {
+  onSubmit(form: FormGroup) {
     console.log(this.producto);
 
     if (this.filesToUpload.length >= 1) {
@@ -41,11 +44,13 @@ export class ProductoAddComponent implements OnInit {
         this.resultUpload = result;
         this.producto.imagen = this.resultUpload.filename;
         this.saveProducto();
+        form.reset();
       }, (error) => {
         console.log(error);
       });
     } else {
       this.saveProducto();
+      form.reset();
     }
 
   }
