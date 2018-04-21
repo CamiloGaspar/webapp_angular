@@ -24,7 +24,7 @@
 
     <label>Imagen</label>
     <div *ngIf="isEdit && producto.imagen">
-        <img src="http://192.168.0.20/curso-angular4/uploads/{{producto.imagen}}" width="60px" />
+        <img src="http://localhost/curso-angular4/uploads/{{producto.imagen}}" width="60px" />
     </div>
     <input type="file" class="form-control" (change)="fileChangeEvent($event)"/>
 

@@ -8,21 +8,22 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-3" *ngFor="let producto of productos">
-                <div class="img-thumbnail">
+                <div class="img-thumbnail" style="height: 100%;">
                     <div *ngIf="producto.imagen">
-                        <img src="http://192.168.0.20/curso-angular4/uploads/{{producto.imagen}}" class="producto_imagen" />
+                        <img src="http://localhost/curso-angular4/uploads/{{producto.imagen}}" class="producto_imagen" />
                     </div>
                     <div *ngIf="!producto.imagen">
                         <div class="img_relleno"></div>
                     </div>
                     <div class="caption">
                         <h3>{{producto.nombre}}</h3>
-                        <p>${{producto.precio}}</p>
-                        <div class="botones" *ngIf="seguro != producto.id">
-                            <a [routerLink]="['/producto', producto.id]" class="btn btn-sm btn-outline-primary">Ver</a>
-                            <a [routerLink]="['/editar-producto', producto.id]" class="btn btn-sm btn-outline-warning">Editar</a>
-                            <a role="button" class="btn btn-sm btn-outline-danger" (click)="verDetalle(camiloModal,producto.id)">Eliminar</a>
-                        </div>
+                        <p>${{producto.precio | numMiles}}</p>
+                    </div>
+                    <div class="botones" *ngIf="seguro != producto.id">
+                        <!-- [routerLink]="['/producto', producto.id]" -->
+                        <a class="btn btn-sm btn-outline-primary" (click)="verDetalle(detailModal,producto.id)">Ver</a>
+                        <a [routerLink]="['/editar-producto', producto.id]" class="btn btn-sm btn-outline-warning">Editar</a>
+                        <a role="button" class="btn btn-sm btn-outline-danger" (click)="verDetalle(deleteModal,producto.id)">Eliminar</a>
                     </div>
                 </div>
             </div>
@@ -35,13 +36,13 @@
         <div class="col-lg-12">
             <h3 style="text-align: center">No hay ningún producto disponible</h3>
             <br>
-            <img class="col-lg-6 offset-lg-3" src="http://192.168.0.20/curso-angular4/uploads/sad.png">
+            <img class="col-lg-6 offset-lg-3" src="http://localhost/curso-angular4/uploads/sad.png">
         </div>
     </div>
 </div>
 
 <!-- Modal / Ventana / Overlay en HTML -->
-<ng-template #camiloModal>
+<ng-template #deleteModal>
     <div class="modal-header">
         <h4 class="modal-title">¿Estás seguro?</h4>
         <button type="button" class="close" aria-hidden="Close" (click)="modalRef.hide()">&#10799;</button>
@@ -50,7 +51,7 @@
         <p>¿Seguro que quieres borrar este elemento?</p>
         <h3 style="text-align: center">{{this.producto.nombre}}</h3>
         <div *ngIf="this.producto.imagen">
-            <img src="http://192.168.0.20/curso-angular4/uploads/{{this.producto.imagen}}" class="producto_imagen" />
+            <img src="http://localhost/curso-angular4/uploads/{{this.producto.imagen}}" class="producto_imagen" />
         </div>
         <p class="text-warning">
             <small>Si lo borras, nunca podrás recuperarlo.</small>
@@ -59,5 +60,27 @@
     <div class="modal-footer">
         <button type="button" class="btn btn-default" (click)="modalRef.hide()">Cerrar</button>
         <button type="button" class="btn btn-danger" (click)="onDeleteProducto(this.producto.id);modalRef.hide();">Eliminar</button>
+    </div>
+</ng-template>
+
+
+<ng-template #detailModal>
+    <div class="modal-header">
+        <h3 style="text-align: center">{{this.producto.nombre}}</h3>
+        <button type="button" class="close" aria-hidden="Close" (click)="modalRef.hide()">&#10799;</button>
+    </div>
+    <div class="modal-body">
+        <div *ngIf="this.producto.imagen">
+            <img src="http://localhost/curso-angular4/uploads/{{this.producto.imagen}}" class="producto_imagen" />
+            <br/>
+        </div>
+
+        <p>{{this.producto.descripcion}}</p>
+        <p>
+            <strong>Precio: </strong> ${{this.producto.precio | numMiles}}</p>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" (click)="modalRef.hide()">Cerrar</button>
     </div>
 </ng-template>

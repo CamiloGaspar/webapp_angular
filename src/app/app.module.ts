@@ -17,6 +17,7 @@ import { ProductoService } from './services/producto.service';
 import { ProductoAddComponent } from './producto-add/producto-add.component';
 import { ProductoDetailComponent } from './producto-detail/producto-detail.component';
 import { ProductoEditComponent } from './producto-edit/producto-edit.component';
+import { NumMilesPipe } from './pipes/num-miles.pipe';
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import { ProductoEditComponent } from './producto-edit/producto-edit.component';
     ProductosListComponent,
     ProductoAddComponent,
     ProductoDetailComponent,
-    ProductoEditComponent
+    ProductoEditComponent,
+    NumMilesPipe
   ],
   imports: [
     BrowserModule,
