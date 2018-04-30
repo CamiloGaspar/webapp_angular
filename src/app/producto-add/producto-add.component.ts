@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute, Params } from '@angular/router';
-
-import { ProductoService } from '../services/producto.service';
+import { FormGroup } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Producto } from '../models/producto';
 import { GLOBAL } from '../services/global';
-import { FormGroup } from '@angular/forms';
+import { ProductoService } from '../services/producto.service';
+
 
 @Component({
   selector: 'app-producto-add',

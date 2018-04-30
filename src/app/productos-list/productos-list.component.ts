@@ -1,8 +1,8 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
-import { Router, ActivatedRoute, Params } from '@angular/router';
-import { ProductoService } from '../services/producto.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { Producto } from '../models/producto';
-import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+import { ProductoService } from '../services/producto.service';
 
 @Component({
   selector: 'app-productos-list',
